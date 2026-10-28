@@ -1,0 +1,14 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\whoami.exe",
+    "ParentImage": "C:\\Windows\\System32\\cmd.exe",
+    "CommandLine": "whoami",
+    "User": "CORP\\admin"
+  },
+  {
+    "Image": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe",
+    "ParentImage": "C:\\Windows\\System32\\inetsrv\\w3wp.exe",
+    "CommandLine": "csc.exe /noconfig /fullpaths @\"C:\\Windows\\Temp\\app.cmdline\"",
+    "User": "IIS APPPOOL\\DefaultAppPool"
+  }
+]

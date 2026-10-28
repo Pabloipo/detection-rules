@@ -1,0 +1,14 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\whoami.exe",
+    "ParentImage": "C:\\Windows\\System32\\inetsrv\\w3wp.exe",
+    "CommandLine": "whoami /all",
+    "User": "IIS APPPOOL\\DefaultAppPool"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\whoami.exe",
+    "ParentImage": "C:\\Apache24\\bin\\httpd.exe",
+    "CommandLine": "whoami",
+    "User": "nt authority\\network service"
+  }
+]

@@ -1,0 +1,32 @@
+title: whoami ejecutado por un proceso de servidor web
+id: 9c9dd9f1-6af3-48f9-8559-932373000b19
+status: experimental
+description: >
+  Detecta whoami.exe lanzado por un proceso de servidor web (IIS w3wp, Apache
+  httpd, nginx, PHP-CGI, Tomcat). Un servidor web no suele consultar la
+  identidad del sistema; es un patrón típico de reconocimiento justo después
+  de que un atacante consigue ejecución mediante un webshell.
+author: Pablo Iglesias Pose
+date: 2026/10/28
+references:
+  - https://attack.mitre.org/techniques/T1033/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\whoami.exe'
+    ParentImage|endswith:
+      - '\w3wp.exe'
+      - '\httpd.exe'
+      - '\nginx.exe'
+      - '\php-cgi.exe'
+      - '\tomcat.exe'
+      - '\tomcat9.exe'
+  condition: selection
+falsepositives:
+  - Scripts de diagnóstico o despliegue que corran bajo la cuenta del servidor web.
+level: high
+tags:
+  - attack.discovery
+  - attack.t1033
