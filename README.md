@@ -52,10 +52,13 @@ tags:
 ## Cómo validar
 
 ```bash
+pip install -r requirements.txt   # solo PyYAML
 python tests/test_rules.py
 ```
 
-No necesita red ni claves. (El harness de validación llega en el siguiente commit; este es el esqueleto del repo.)
+No necesita red ni claves. El harness lleva un pequeño matcher Sigma propio (offline) que parsea cada regla, la ejecuta contra `match.json` y `nomatch.json`, y falla si deja de detectar algo que debía o si salta con un evento benigno.
+
+Subconjunto de Sigma que soporta el matcher: modificadores `contains`/`startswith`/`endswith`/`re`/`all`, comodines `*` y `?`, listas como OR (o AND con `|all`), y condiciones con `and`/`or`/`not`, paréntesis y `x of` (`1 of sel_*`, `all of them`, …).
 
 ## MITRE ATT&CK
 
