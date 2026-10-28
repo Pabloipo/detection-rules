@@ -1,2 +1,66 @@
 # detection-rules
-Reglas de detección (Sigma) mapeadas a MITRE ATT&amp;CK, con muestras de log y tests.
+
+Reglas de detección [Sigma](https://github.com/SigmaHQ/sigma) mapeadas a [MITRE ATT&CK](https://attack.mitre.org/), cada una con muestras de log y un test que comprueba que detecta lo que debe (y solo eso).
+
+No es una colección de reglas copiadas: cada regla trae la evidencia de que funciona. La idea es enseñar el razonamiento de detección, no solo el YAML.
+
+## Estructura
+
+```
+rules/
+  <plataforma>/<categoría>/<nombre>.yml   # la regla Sigma
+tests/
+  samples/<nombre>/match.json             # log(s) que SÍ debe detectar
+  samples/<nombre>/nomatch.json           # log(s) que NO debe detectar (evita falsos positivos)
+  test_rules.py                           # valida y prueba todas las reglas
+```
+
+`<nombre>` es el mismo para la regla y su carpeta de muestras, así se emparejan solos.
+
+## Formato de una regla
+
+Cada regla cumple cuatro cosas:
+
+1. **Lógica Sigma** en un `.yml` con los campos estándar: `title`, `id` (UUID), `status`, `description`, `author`, `date`, `logsource`, `detection` (con `condition`) y `level`.
+2. **Mapeo ATT&CK** en `tags`, con la táctica y la técnica. Ejemplo: `attack.execution`, `attack.t1059.001`.
+3. **Muestras de log**: un `match.json` con eventos que deben disparar la regla y un `nomatch.json` con eventos parecidos pero benignos.
+4. **Test**: `tests/test_rules.py` parsea la regla, comprueba que detecta cada evento de `match.json` y que no detecta ninguno de `nomatch.json`.
+
+Ejemplo mínimo de regla:
+
+```yaml
+title: Whoami ejecutado por un proceso web
+id: 00000000-0000-0000-0000-000000000000
+status: experimental
+description: whoami.exe lanzado por w3wp/httpd, típico de reconocimiento tras un webshell.
+author: Pablo Iglesias Pose
+date: 2026/10/28
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\whoami.exe'
+    ParentImage|endswith: '\w3wp.exe'
+  condition: selection
+level: high
+tags:
+  - attack.discovery
+  - attack.t1033
+```
+
+## Cómo validar
+
+```bash
+python tests/test_rules.py
+```
+
+No necesita red ni claves. (El harness de validación llega en el siguiente commit; este es el esqueleto del repo.)
+
+## MITRE ATT&CK
+
+Cada regla se etiqueta con su táctica (p. ej. `attack.execution`) y su técnica o subtécnica (p. ej. `attack.t1059.001`). Así se ve de un vistazo qué cubre el repo y dónde quedan huecos frente a la matriz ATT&CK.
+
+## Licencia
+
+MIT
