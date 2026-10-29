@@ -1,0 +1,33 @@
+title: regsvr32 ejecutando scriptlet remoto (Squiblydoo)
+id: 5c665157-42a0-4f90-a213-0e02f1d16008
+status: experimental
+description: >
+  Técnica "Squiblydoo": regsvr32.exe, un binario firmado por Microsoft, puede
+  registrar un COM scriptlet (.sct) usando scrobj.dll con el flag /i:, y ese
+  scriptlet puede venir de una URL. Así se ejecuta código arbitrario sin tocar
+  el disco con un .exe y saltándose muchos AppLocker/whitelisting, porque quien
+  ejecuta es un binario legítimo. La regla marca regsvr32 cuando referencia
+  scrobj.dll o un /i: con http/ftp.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1218/010/
+  - https://lolbas-project.github.io/lolbas/Binaries/Regsvr32/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\regsvr32.exe'
+    CommandLine|contains:
+      - 'scrobj.dll'
+      - 'scrobj'
+      - '/i:http'
+      - '/i:ftp'
+  condition: selection
+falsepositives:
+  - Software que registra componentes COM legítimos con scrobj (raro).
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218.010
