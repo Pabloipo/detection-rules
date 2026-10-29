@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\vssadmin.exe",
+    "CommandLine": "vssadmin list shadows"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\wbadmin.exe",
+    "CommandLine": "wbadmin start backup -backupTarget:E: -include:C:"
+  }
+]
