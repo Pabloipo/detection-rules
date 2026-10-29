@@ -1,0 +1,28 @@
+title: Creación de tarea programada con schtasks
+id: f2a99538-45b4-4646-969e-334e73322757
+status: experimental
+description: >
+  Las tareas programadas sirven a los atacantes para persistencia (ejecutar su
+  payload al iniciar sesión, al arrancar o cada X minutos) y a veces para
+  ejecutar como SYSTEM. "schtasks /create" registra una tarea nueva. La regla
+  marca schtasks.exe con /create; conviene revisar el /tr (la acción que
+  ejecuta la tarea).
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains: '/create'
+  condition: selection
+falsepositives:
+  - Instaladores y scripts de administración que crean tareas legítimas.
+level: medium
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.005

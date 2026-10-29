@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\schtasks.exe",
+    "CommandLine": "schtasks /query /fo LIST /v"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\schtasks.exe",
+    "CommandLine": "schtasks /run /tn \"\\Microsoft\\Windows\\Defrag\\ScheduledDefrag\""
+  }
+]

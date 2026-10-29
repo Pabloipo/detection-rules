@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\schtasks.exe",
+    "CommandLine": "schtasks /create /tn \"Updater\" /tr \"powershell -enc AAAA\" /sc onlogon"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\schtasks.exe",
+    "CommandLine": "schtasks.exe /Create /TN Backdoor /TR C:\\Temp\\evil.exe /SC MINUTE /MO 5"
+  }
+]
