@@ -1,5 +1,9 @@
 # detection-rules
 
+[![tests](https://github.com/Pabloipo/detection-rules/actions/workflows/tests.yml/badge.svg)](https://github.com/Pabloipo/detection-rules/actions/workflows/tests.yml)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 Reglas de detección [Sigma](https://github.com/SigmaHQ/sigma) mapeadas a [MITRE ATT&CK](https://attack.mitre.org/), cada una con muestras de log y un test que comprueba que detecta lo que debe (y solo eso).
 
 No es una colección de reglas copiadas: cada regla trae la evidencia de que funciona. La idea es enseñar el razonamiento de detección, no solo el YAML.
