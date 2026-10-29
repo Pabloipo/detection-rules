@@ -4,39 +4,39 @@
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Reglas de detección [Sigma](https://github.com/SigmaHQ/sigma) mapeadas a [MITRE ATT&CK](https://attack.mitre.org/), cada una con muestras de log y un test que comprueba que detecta lo que debe (y solo eso).
+Detection rules in [Sigma](https://github.com/SigmaHQ/sigma) mapped to [MITRE ATT&CK](https://attack.mitre.org/), each one shipping log samples and a test that proves it detects what it should (and nothing else).
 
-No es una colección de reglas copiadas: cada regla trae la evidencia de que funciona. La idea es enseñar el razonamiento de detección, no solo el YAML.
+This is not a dump of copied rules: every rule comes with the evidence that it works. The goal is to show detection reasoning, not just YAML.
 
-## Estructura
+## Structure
 
 ```
 rules/
-  <plataforma>/<categoría>/<nombre>.yml   # la regla Sigma
+  <platform>/<category>/<name>.yml   # the Sigma rule
 tests/
-  samples/<nombre>/match.json             # log(s) que SÍ debe detectar
-  samples/<nombre>/nomatch.json           # log(s) que NO debe detectar (evita falsos positivos)
-  test_rules.py                           # valida y prueba todas las reglas
+  samples/<name>/match.json          # log(s) it SHOULD detect
+  samples/<name>/nomatch.json        # benign log(s) it should NOT detect (guards against false positives)
+  test_rules.py                      # validates and tests every rule
 ```
 
-`<nombre>` es el mismo para la regla y su carpeta de muestras, así se emparejan solos.
+`<name>` is shared by the rule and its samples folder, so they pair up automatically.
 
-## Formato de una regla
+## Rule format
 
-Cada regla cumple cuatro cosas:
+Every rule does four things:
 
-1. **Lógica Sigma** en un `.yml` con los campos estándar: `title`, `id` (UUID), `status`, `description`, `author`, `date`, `logsource`, `detection` (con `condition`) y `level`.
-2. **Mapeo ATT&CK** en `tags`, con la táctica y la técnica. Ejemplo: `attack.execution`, `attack.t1059.001`.
-3. **Muestras de log**: un `match.json` con eventos que deben disparar la regla y un `nomatch.json` con eventos parecidos pero benignos.
-4. **Test**: `tests/test_rules.py` parsea la regla, comprueba que detecta cada evento de `match.json` y que no detecta ninguno de `nomatch.json`.
+1. **Sigma logic** in a `.yml` with the standard fields: `title`, `id` (UUID), `status`, `description`, `author`, `date`, `logsource`, `detection` (with `condition`) and `level`.
+2. **ATT&CK mapping** in `tags`, with tactic and technique. Example: `attack.execution`, `attack.t1059.001`.
+3. **Log samples**: a `match.json` with events that must trigger the rule and a `nomatch.json` with similar but benign events.
+4. **Test**: `tests/test_rules.py` parses the rule, checks it detects every event in `match.json` and none in `nomatch.json`.
 
-Ejemplo mínimo de regla:
+Minimal rule example:
 
 ```yaml
-title: Whoami ejecutado por un proceso web
+title: Whoami executed by a web server process
 id: 00000000-0000-0000-0000-000000000000
 status: experimental
-description: whoami.exe lanzado por w3wp/httpd, típico de reconocimiento tras un webshell.
+description: whoami.exe spawned by w3wp/httpd, typical reconnaissance after a webshell.
 author: Pablo Iglesias Pose
 date: 2026/10/28
 logsource:
@@ -53,21 +53,21 @@ tags:
   - attack.t1033
 ```
 
-## Cómo validar
+## How to validate
 
 ```bash
-pip install -r requirements.txt   # solo PyYAML
+pip install -r requirements.txt   # just PyYAML
 python tests/test_rules.py
 ```
 
-No necesita red ni claves. El harness lleva un pequeño matcher Sigma propio (offline) que parsea cada regla, la ejecuta contra `match.json` y `nomatch.json`, y falla si deja de detectar algo que debía o si salta con un evento benigno.
+No network or API keys needed. The harness ships a small self-contained Sigma matcher (offline) that parses each rule, runs it against `match.json` and `nomatch.json`, and fails if a rule stops detecting what it should or fires on a benign event.
 
-Subconjunto de Sigma que soporta el matcher: modificadores `contains`/`startswith`/`endswith`/`re`/`all`, comodines `*` y `?`, listas como OR (o AND con `|all`), y condiciones con `and`/`or`/`not`, paréntesis y `x of` (`1 of sel_*`, `all of them`, …).
+Sigma subset supported by the matcher: `contains`/`startswith`/`endswith`/`re`/`all` modifiers, `*` and `?` wildcards, lists as OR (or AND with `|all`), and conditions with `and`/`or`/`not`, parentheses and `x of` (`1 of sel_*`, `all of them`, …).
 
 ## MITRE ATT&CK
 
-Cada regla se etiqueta con su táctica (p. ej. `attack.execution`) y su técnica o subtécnica (p. ej. `attack.t1059.001`). Así se ve de un vistazo qué cubre el repo y dónde quedan huecos frente a la matriz ATT&CK.
+Every rule is tagged with its tactic (e.g. `attack.execution`) and its technique or sub-technique (e.g. `attack.t1059.001`), so you can see at a glance what the repo covers and where the gaps are against the ATT&CK matrix.
 
-## Licencia
+## License
 
 MIT
