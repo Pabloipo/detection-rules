@@ -1,0 +1,30 @@
+title: Ejecución de procesos mediante wmic process call create
+id: 8f2b0838-d368-4139-bd65-19f0b2d3ff06
+status: experimental
+description: >
+  "wmic process call create" lanza un proceso a través de WMI. Los atacantes lo
+  usan para ejecutar código de forma indirecta (no es cmd ni powershell quien
+  crea el hijo, sino WmiPrvSE) y, con /node:, para ejecutarlo en una máquina
+  remota, lo que lo convierte en una técnica de movimiento lateral. La regla
+  marca wmic.exe cuando lleva juntas las palabras 'process', 'call' y 'create'.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1047/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\wmic.exe'
+    CommandLine|contains|all:
+      - 'process'
+      - 'call'
+      - 'create'
+  condition: selection
+falsepositives:
+  - Scripts de administración que creen procesos por WMI (poco habitual hoy).
+level: high
+tags:
+  - attack.execution
+  - attack.t1047

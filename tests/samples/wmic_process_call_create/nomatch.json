@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+    "CommandLine": "wmic process list brief"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+    "CommandLine": "wmic qfe get HotFixID"
+  }
+]

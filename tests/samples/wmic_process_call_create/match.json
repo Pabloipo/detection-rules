@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+    "CommandLine": "wmic process call create \"cmd.exe /c calc.exe\""
+  },
+  {
+    "Image": "C:\\Windows\\System32\\wbem\\wmic.exe",
+    "CommandLine": "wmic /node:10.0.0.5 process call create \"C:\\Temp\\evil.exe\""
+  }
+]
