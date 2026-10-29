@@ -1,0 +1,14 @@
+[
+  {
+    "EventID": 13,
+    "TargetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\Updater",
+    "Details": "C:\\Users\\Public\\evil.exe",
+    "Image": "C:\\Windows\\System32\\reg.exe"
+  },
+  {
+    "EventID": 13,
+    "TargetObject": "HKU\\S-1-5-21-1004336348\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\x",
+    "Details": "powershell -enc AAAA",
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+  }
+]

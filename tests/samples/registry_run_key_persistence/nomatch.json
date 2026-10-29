@@ -1,0 +1,14 @@
+[
+  {
+    "EventID": 13,
+    "TargetObject": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+    "Details": "1",
+    "Image": "C:\\Windows\\explorer.exe"
+  },
+  {
+    "EventID": 13,
+    "TargetObject": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Foo\\Start",
+    "Details": "2",
+    "Image": "C:\\Windows\\System32\\services.exe"
+  }
+]

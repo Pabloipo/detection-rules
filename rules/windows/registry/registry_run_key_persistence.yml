@@ -1,0 +1,31 @@
+title: Persistencia por clave Run del registro
+id: 54ed26fa-ee5b-47a9-9298-a6518ac89257
+status: experimental
+description: >
+  Las claves Run / RunOnce del registro ejecutan lo que apunten cada vez que el
+  usuario inicia sesión. Es uno de los mecanismos de persistencia más usados:
+  el atacante escribe ahí la ruta de su binario o un comando y sobrevive a los
+  reinicios sin privilegios especiales. La regla marca cualquier escritura en
+  esas claves (evento 13 de Sysmon). Es ruidosa por diseño (mucho software
+  legítimo también las usa), así que está pensada como regla de caza: hay que
+  revisar qué binario se registra.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+logsource:
+  product: windows
+  category: registry_set
+detection:
+  selection:
+    TargetObject|contains:
+      - '\Software\Microsoft\Windows\CurrentVersion\Run'
+      - '\Software\Microsoft\Windows\CurrentVersion\RunOnce'
+      - '\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Run'
+  condition: selection
+falsepositives:
+  - Software legítimo que se registra para arrancar con el usuario (muy común).
+level: medium
+tags:
+  - attack.persistence
+  - attack.t1547.001
