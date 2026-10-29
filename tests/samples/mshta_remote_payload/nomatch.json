@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\mshta.exe",
+    "CommandLine": "mshta.exe \"C:\\Program Files\\Corp\\dashboard.hta\""
+  },
+  {
+    "Image": "C:\\Windows\\System32\\mshta.exe",
+    "CommandLine": "mshta.exe C:\\Windows\\Temp\\report.hta"
+  }
+]
