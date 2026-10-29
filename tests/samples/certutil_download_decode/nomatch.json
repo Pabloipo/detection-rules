@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\certutil.exe",
+    "CommandLine": "certutil -hashfile C:\\app\\setup.exe SHA256"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\certutil.exe",
+    "CommandLine": "certutil -store my"
+  }
+]
