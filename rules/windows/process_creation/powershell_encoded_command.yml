@@ -1,0 +1,36 @@
+title: PowerShell con comando codificado en base64
+id: 49a00066-f4d4-4b5b-a155-e34ea5dd3a7a
+status: experimental
+description: >
+  El flag -EncodedCommand (-enc) ejecuta un script PowerShell pasado en base64.
+  Es la forma habitual en que malware, loaders y frameworks de C2 (Cobalt
+  Strike, Metasploit) lanzan su código: el base64 oculta el contenido a una
+  inspección rápida y evita problemas de comillas/escape. Un uso legítimo
+  interactivo rara vez codifica el comando, así que su presencia en línea de
+  comandos es una señal fuerte. La regla busca powershell.exe o pwsh.exe con
+  ese flag.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1027/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+    CommandLine|contains:
+      - ' -enc'
+      - ' -encodedcommand'
+  condition: selection
+falsepositives:
+  - Software de gestión/despliegue que genere comandos PowerShell codificados.
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.defense_evasion
+  - attack.t1027
