@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\sc.exe",
+    "CommandLine": "sc.exe create EvilSvc binPath= \"C:\\Temp\\evil.exe\" start= auto"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\sc.exe",
+    "CommandLine": "sc create Updater binpath= \"cmd /c powershell -enc AAAA\""
+  }
+]

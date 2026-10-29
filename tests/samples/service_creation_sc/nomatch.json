@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\sc.exe",
+    "CommandLine": "sc query spooler"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\sc.exe",
+    "CommandLine": "sc.exe start wuauserv"
+  }
+]
