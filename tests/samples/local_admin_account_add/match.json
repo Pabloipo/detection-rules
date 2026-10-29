@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\net.exe",
+    "CommandLine": "net user hacker P@ssw0rd123 /add"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\net.exe",
+    "CommandLine": "net localgroup administrators hacker /add"
+  }
+]

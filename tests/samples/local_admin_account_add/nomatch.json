@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\net.exe",
+    "CommandLine": "net user administrator"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\net.exe",
+    "CommandLine": "net view \\\\FILESERVER"
+  }
+]

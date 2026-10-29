@@ -1,0 +1,37 @@
+title: Creación de cuenta local o alta en Administradores con net
+id: 995a0784-790d-4fcd-bd87-47b494971b81
+status: experimental
+description: >
+  Tras comprometer un equipo, un atacante suele crearse una cuenta local
+  ("net user <nombre> <pass> /add") y meterla en el grupo Administradores
+  ("net localgroup administrators <nombre> /add") para tener un acceso propio y
+  con privilegios que sobreviva aunque se cierre el vector inicial. La regla
+  marca net.exe/net1.exe cuando añade un usuario o lo mete en administradores.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_img:
+    Image|endswith:
+      - '\net.exe'
+      - '\net1.exe'
+  selection_user_add:
+    CommandLine|contains|all:
+      - 'user'
+      - '/add'
+  selection_group_admin:
+    CommandLine|contains|all:
+      - 'localgroup'
+      - 'administrators'
+      - '/add'
+  condition: selection_img and (selection_user_add or selection_group_admin)
+falsepositives:
+  - Alta legítima de cuentas por parte de administración de sistemas.
+level: high
+tags:
+  - attack.persistence
+  - attack.t1136.001
