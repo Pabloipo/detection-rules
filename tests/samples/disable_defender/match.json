@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell -Command Set-MpPreference -DisableRealtimeMonitoring $true"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\sc.exe",
+    "CommandLine": "sc stop WinDefend"
+  }
+]
