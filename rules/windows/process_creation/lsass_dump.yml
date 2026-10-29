@@ -1,0 +1,33 @@
+title: Volcado de memoria de LSASS (robo de credenciales)
+id: 49431ae5-e08b-4cca-a180-d231f661f33a
+status: experimental
+description: >
+  LSASS guarda en memoria credenciales de las sesiones activas (hashes NTLM,
+  tickets Kerberos). Volcar su memoria a un fichero permite extraer esas
+  credenciales offline con Mimikatz. Dos formas muy vistas: procdump -ma
+  lsass.exe, y abusar de comsvcs.dll con su función MiniDump vía rundll32
+  (todo con binarios legítimos). La regla cubre ambas: procdump junto a lsass,
+  o comsvcs.dll junto a minidump.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_procdump:
+    CommandLine|contains|all:
+      - 'procdump'
+      - 'lsass'
+  selection_comsvcs:
+    CommandLine|contains|all:
+      - 'comsvcs.dll'
+      - 'minidump'
+  condition: 1 of selection_*
+falsepositives:
+  - Diagnósticos legítimos de LSASS por soporte de Microsoft (infrecuente).
+level: critical
+tags:
+  - attack.credential_access
+  - attack.t1003.001

@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Tools\\procdump64.exe",
+    "CommandLine": "procdump64.exe -ma notepad.exe C:\\Temp\\np.dmp"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\rundll32.exe",
+    "CommandLine": "rundll32.exe shell32.dll,Control_RunDLL desk.cpl"
+  }
+]
