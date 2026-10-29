@@ -1,0 +1,32 @@
+title: Borrado de registros de eventos de Windows
+id: ad804f6b-06d5-432f-a810-752d17b51af6
+status: experimental
+description: >
+  Borrar los event logs es una técnica de anti-forense: el atacante elimina las
+  huellas de lo que ha hecho para dificultar la investigación. Se hace con
+  "wevtutil cl <log>" o con "Clear-EventLog" en PowerShell. Un sistema sano casi
+  nunca borra sus logs de seguridad, así que es una señal fuerte. La regla cubre
+  ambas vías.
+author: Pablo Iglesias Pose
+date: 2026/10/29
+references:
+  - https://attack.mitre.org/techniques/T1070/001/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_wevtutil:
+    Image|endswith: '\wevtutil.exe'
+    CommandLine|contains:
+      - ' cl '
+      - ' clear-log'
+  selection_ps:
+    CommandLine|contains:
+      - 'Clear-EventLog'
+  condition: 1 of selection_*
+falsepositives:
+  - Mantenimiento muy puntual que rote o limpie logs de forma legítima.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1070.001

@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\wevtutil.exe",
+    "CommandLine": "wevtutil.exe qe Security /c:5 /rd:true /f:text"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell.exe -Command Get-EventLog -LogName System -Newest 10"
+  }
+]
