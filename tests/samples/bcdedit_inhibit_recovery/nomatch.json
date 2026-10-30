@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\bcdedit.exe",
+    "CommandLine": "bcdedit /enum"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\bcdedit.exe",
+    "CommandLine": "bcdedit /set {default} description \"Windows 11\""
+  }
+]

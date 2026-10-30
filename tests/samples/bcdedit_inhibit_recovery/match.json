@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\bcdedit.exe",
+    "CommandLine": "bcdedit /set {default} recoveryenabled No"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\bcdedit.exe",
+    "CommandLine": "bcdedit /set {default} bootstatuspolicy ignoreallfailures"
+  }
+]

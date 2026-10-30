@@ -1,0 +1,32 @@
+title: Desactivar la recuperacion de Windows con bcdedit
+id: 61b90a92-79e3-451a-9b6b-1b85df566511
+status: experimental
+description: >
+  bcdedit.exe edita los datos de arranque (BCD) de Windows. El ransomware lo usa
+  justo antes de cifrar para sabotear la recuperacion: "bcdedit /set {default}
+  recoveryenabled No" apaga la reparacion automatica y "bcdedit /set {default}
+  bootstatuspolicy ignoreallfailures" hace que Windows ignore los fallos de
+  arranque y no entre en el entorno de recuperacion. Asi la victima no puede
+  restaurar el sistema facilmente y queda mas presionada a pagar. La regla marca
+  bcdedit con cualquiera de esos dos cambios.
+author: Pablo Iglesias Pose
+date: 2026/10/30
+references:
+  - https://attack.mitre.org/techniques/T1490/
+  - https://lolbas-project.github.io/lolbas/Binaries/Bcdedit/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\bcdedit.exe'
+    CommandLine|contains:
+      - 'recoveryenabled no'
+      - 'bootstatuspolicy ignoreallfailures'
+  condition: selection
+falsepositives:
+  - Herramientas de recuperacion o scripts de administracion del arranque.
+level: high
+tags:
+  - attack.impact
+  - attack.t1490
