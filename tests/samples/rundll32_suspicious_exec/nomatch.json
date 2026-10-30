@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\rundll32.exe",
+    "CommandLine": "rundll32.exe shell32.dll,Control_RunDLL desk.cpl"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\rundll32.exe",
+    "CommandLine": "rundll32.exe C:\\Windows\\System32\\shimgvw.dll,ImageView_Fullscreen C:\\pics\\a.jpg"
+  }
+]

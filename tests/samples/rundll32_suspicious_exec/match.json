@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\rundll32.exe",
+    "CommandLine": "rundll32.exe javascript:\"\\..\\mshtml,RunHTMLApplication \";document.write();new%20ActiveXObject(\"WScript.Shell\").Run(\"calc\")"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\rundll32.exe",
+    "CommandLine": "rundll32.exe C:\\Users\\user\\AppData\\Local\\Temp\\payload.dll,StartW"
+  }
+]

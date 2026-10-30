@@ -1,0 +1,38 @@
+title: Ejecucion sospechosa con rundll32
+id: 2cfa9a77-a99c-4823-813e-765f82a09c6d
+status: experimental
+description: >
+  rundll32.exe es un binario legitimo de Windows que carga una DLL y ejecuta
+  una de sus funciones. Los atacantes lo usan como "proxy" para ejecutar codigo
+  bajo un proceso firmado por Microsoft (System32) y evadir controles que
+  confian en la firma. Dos abusos muy tipicos: 1) "rundll32 javascript:..."
+  interpreta JScript en linea sin tocar disco (p. ej. el clasico truco de
+  mshtml RunHTMLApplication), y 2) cargar una DLL desde una ruta escribible por
+  el usuario (AppData, Temp, ProgramData, Public), donde un binario legitimo del
+  sistema no deberia vivir. La regla marca cualquiera de los dos casos.
+author: Pablo Iglesias Pose
+date: 2026/10/30
+references:
+  - https://attack.mitre.org/techniques/T1218/011/
+  - https://lolbas-project.github.io/lolbas/Binaries/Rundll32/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_js:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains: 'javascript:'
+  selection_userpath:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains:
+      - '\appdata\'
+      - '\temp\'
+      - '\programdata\'
+      - '\users\public\'
+  condition: selection_js or selection_userpath
+falsepositives:
+  - Software que instale o ejecute DLLs legitimas desde ProgramData o AppData.
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.t1218.011
