@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell.exe -c \"Invoke-WebRequest -Uri http://host/f.zip -OutFile C:\\Temp\\f.zip\""
+  },
+  {
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell.exe -c \"Get-Process | Sort-Object CPU -Descending\""
+  }
+]

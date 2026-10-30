@@ -1,0 +1,46 @@
+title: Descarga y ejecucion en memoria con PowerShell
+id: d047533a-9b17-4fa4-9f43-7bf098ec10c8
+status: experimental
+description: >
+  Un "download cradle" es la forma tipica de PowerShell de bajar codigo y
+  ejecutarlo directamente en memoria, sin dejar el payload en disco (fileless).
+  El patron clasico es "IEX (New-Object Net.WebClient).DownloadString('http://...')"
+  o "iwr http://... | iex": se descarga un script con WebClient / Invoke-WebRequest
+  y se pasa a Invoke-Expression (IEX), que lo evalua al vuelo. Como no se escribe
+  fichero, el antivirus clasico por firmas no tiene nada que escanear. La regla
+  exige las dos piezas juntas: un metodo de descarga web Y una llamada a IEX /
+  Invoke-Expression, lo que deja muy pocos falsos positivos.
+author: Pablo Iglesias Pose
+date: 2026/10/30
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1105/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_img:
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+  selection_download:
+    CommandLine|contains:
+      - 'DownloadString'
+      - 'DownloadData'
+      - 'DownloadFile'
+      - 'Net.WebClient'
+      - 'Invoke-WebRequest'
+      - 'iwr '
+  selection_exec:
+    CommandLine|contains:
+      - 'IEX'
+      - 'Invoke-Expression'
+  condition: selection_img and selection_download and selection_exec
+falsepositives:
+  - Scripts de despliegue legitimos que bajen y evaluen codigo (raro; revisar origen).
+level: high
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.command_and_control
+  - attack.t1105
