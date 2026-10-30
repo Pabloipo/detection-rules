@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+    "CommandLine": "bitsadmin /list /allusers"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\bitsadmin.exe",
+    "CommandLine": "bitsadmin /reset /allusers"
+  }
+]

@@ -1,0 +1,32 @@
+title: Descarga de ficheros con bitsadmin
+id: b104c889-c21d-475b-a2d2-74030747f5eb
+status: experimental
+description: >
+  bitsadmin.exe gestiona el servicio BITS (transferencias en segundo plano que
+  usa Windows Update). Los atacantes abusan de él como descargador "living off
+  the land": "bitsadmin /transfer <job> <url> <destino>" baja un fichero con un
+  binario legítimo y firmado, y además la transferencia la realiza el servicio
+  BITS en segundo plano, lo que la hace menos visible. La regla marca
+  bitsadmin con /transfer, /addfile o /download.
+author: Pablo Iglesias Pose
+date: 2026/10/30
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://lolbas-project.github.io/lolbas/Binaries/Bitsadmin/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\bitsadmin.exe'
+    CommandLine|contains:
+      - '/transfer'
+      - '/addfile'
+      - '/download'
+  condition: selection
+falsepositives:
+  - Scripts de administración o despliegue que usen BITS de forma legítima.
+level: high
+tags:
+  - attack.command_and_control
+  - attack.t1105
