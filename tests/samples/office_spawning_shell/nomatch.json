@@ -1,0 +1,12 @@
+[
+  {
+    "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+    "Image": "C:\\Windows\\splwow64.exe",
+    "CommandLine": "splwow64.exe 12288"
+  },
+  {
+    "ParentImage": "C:\\Windows\\explorer.exe",
+    "Image": "C:\\Windows\\System32\\cmd.exe",
+    "CommandLine": "cmd.exe /c dir"
+  }
+]

