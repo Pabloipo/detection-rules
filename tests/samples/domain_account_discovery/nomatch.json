@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\net.exe",
+    "CommandLine": "net use Z: \\\\fileserver\\share /user:bob"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\nltest.exe",
+    "CommandLine": "nltest /query"
+  }
+]

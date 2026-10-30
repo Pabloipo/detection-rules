@@ -1,0 +1,10 @@
+[
+  {
+    "Image": "C:\\Windows\\System32\\net.exe",
+    "CommandLine": "net group \"Domain Admins\" /domain"
+  },
+  {
+    "Image": "C:\\Windows\\System32\\nltest.exe",
+    "CommandLine": "nltest /dclist:corp.local"
+  }
+]

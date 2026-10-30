@@ -1,0 +1,44 @@
+title: Enumeracion de cuentas y grupos de dominio
+id: 9f170ab9-b4a7-4fde-bb06-f881a5b9968e
+status: experimental
+description: >
+  Tras conseguir un punto de apoyo, el atacante hace reconocimiento del Active
+  Directory para planear el movimiento lateral: que grupos privilegiados existen
+  (Domain Admins, Enterprise Admins), quien es controlador de dominio y que
+  confianzas hay. Lo hace con binarios nativos ("living off the land") que no
+  levantan sospecha por si solos. La regla marca: enumeracion de grupos
+  privilegiados con net group ("Domain Admins"/"Enterprise Admins"/"Domain
+  Controllers"), reconocimiento de dominio con nltest (/dclist, /domain_trusts,
+  /trusted_domains) y consultas con dsquery.
+author: Pablo Iglesias Pose
+date: 2026/10/30
+references:
+  - https://attack.mitre.org/techniques/T1087/002/
+  - https://lolbas-project.github.io/lolbas/Binaries/Nltest/
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_net:
+    Image|endswith:
+      - '\net.exe'
+      - '\net1.exe'
+    CommandLine|contains:
+      - 'group "domain admins"'
+      - 'group "enterprise admins"'
+      - 'group "domain controllers"'
+  selection_nltest:
+    Image|endswith: '\nltest.exe'
+    CommandLine|contains:
+      - '/dclist'
+      - '/domain_trusts'
+      - '/trusted_domains'
+  selection_dsquery:
+    Image|endswith: '\dsquery.exe'
+  condition: 1 of selection_*
+falsepositives:
+  - Administradores o scripts de inventario que consulten AD de forma legitima.
+level: medium
+tags:
+  - attack.discovery
+  - attack.t1087.002
